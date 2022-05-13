@@ -598,10 +598,12 @@ class KernelMagics(SparkMagicBase):
 
     @magic_arguments()
     @cell_magic
+    @argument("-k", "--kernel", type=str, help="kernel credential to use.")
     @argument("-l", "--language", type=str, help="Language to use.")
     def _do_not_call_change_language(self, line, cell="", local_ns=None):
         args = parse_argstring_or_throw(self._do_not_call_change_language, line)
         language = args.language.lower()
+        kernel = args.kernel
 
         if language not in LANGS_SUPPORTED:
             self.ipython_display.send_error(
@@ -616,7 +618,7 @@ class KernelMagics(SparkMagicBase):
             return
 
         self.language = language
-        self.refresh_configuration()
+        self.refresh_configuration(kernel)
 
     @magic_arguments()
     @line_magic
@@ -645,8 +647,8 @@ class KernelMagics(SparkMagicBase):
         else:
             session.ipython_display.send_error(out)
 
-    def refresh_configuration(self):
-        credentials = getattr(conf, "base64_kernel_" + self.language + "_credentials")()
+    def refresh_configuration(self, kernel):
+        credentials = getattr(conf, "base64_kernel_" + kernel + "_credentials")()
         (username, password, auth, url) = (
             credentials["username"],
             credentials["password"],

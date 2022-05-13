@@ -72,6 +72,7 @@ class SparkKernelBase(IPythonKernel):
         language_version,
         language_info,
         session_language,
+        kernel_name,
         user_code_parser=None,
         **kwargs
     ):
@@ -84,6 +85,7 @@ class SparkKernelBase(IPythonKernel):
 
         # Override
         self.session_language = session_language
+        self.kernel_name = kernel_name
 
         # NOTE: This is a (hopefully) temporary workaround to accommodate async do_execute in ipykernel>=6
         # Patch loop.run_until_complete as early as possible
@@ -160,16 +162,16 @@ class SparkKernelBase(IPythonKernel):
         self.logger.debug("Loaded magics.")
 
     def _change_language(self):
-        register_magics_code = "%%_do_not_call_change_language -l {}\n ".format(
-            self.session_language
+        register_magics_code = "%%_do_not_call_change_language -l {} -k {}\n ".format(
+            self.session_language, self.kernel_name
         )
         self._execute_cell(
             register_magics_code,
             True,
             False,
             shutdown_if_error=True,
-            log_if_error="Failed to change language to {}.".format(
-                self.session_language
+            log_if_error="Failed to change language to {} {}.".format(
+                self.session_language, self.kernel_name
             ),
         )
         self.logger.debug("Changed language.")

@@ -17,6 +17,7 @@ class PySparkKernel(SparkKernelBase):
             "file_extension": ".py",
             "pygments_lexer": "python3",
         }
+
         session_language = LANG_PYTHON
 
         super(PySparkKernel, self).__init__(
@@ -26,7 +27,7 @@ class PySparkKernel(SparkKernelBase):
             language_version,
             language_info,
             session_language,
-            "python",
+            "python2",
             **kwargs
         )
 

@@ -27,6 +27,7 @@ class SparkKernel(SparkKernelBase):
             language_version,
             language_info,
             session_language,
+            "scala",
             **kwargs
         )
 
