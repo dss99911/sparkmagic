@@ -104,6 +104,20 @@ def kernel_python_credentials():
     }
 
 
+@_with_override
+def kernel_python2_credentials():
+    return {
+        "username": "",
+        "base64_password": "",
+        "url": "http://localhost:8998",
+        "auth": NO_AUTH,
+    }
+
+
+def base64_kernel_python2_credentials():
+    return _credentials_override(kernel_python2_credentials)
+
+
 def base64_kernel_python_credentials():
     return _credentials_override(kernel_python_credentials)
 

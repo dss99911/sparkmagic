@@ -4,9 +4,9 @@ from sparkmagic.utils.constants import LANG_PYTHON
 from sparkmagic.kernels.wrapperkernel.sparkkernelbase import SparkKernelBase
 
 
-class PySparkKernel(SparkKernelBase):
+class PySpark2Kernel(SparkKernelBase):
     def __init__(self, **kwargs):
-        implementation = "PySpark"
+        implementation = "PySpark2"
         implementation_version = "1.0"
         language = LANG_PYTHON
         language_version = "0.1"
@@ -20,7 +20,7 @@ class PySparkKernel(SparkKernelBase):
 
         session_language = LANG_PYTHON
 
-        super(PySparkKernel, self).__init__(
+        super(PySpark2Kernel, self).__init__(
             implementation,
             implementation_version,
             language,
@@ -35,4 +35,4 @@ class PySparkKernel(SparkKernelBase):
 if __name__ == "__main__":
     from ipykernel.kernelapp import IPKernelApp
 
-    IPKernelApp.launch_instance(kernel_class=PySparkKernel)
+    IPKernelApp.launch_instance(kernel_class=PySpark2Kernel)

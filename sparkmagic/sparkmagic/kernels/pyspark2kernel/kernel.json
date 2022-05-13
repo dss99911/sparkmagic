@@ -2,7 +2,7 @@
   "argv": [
     "python",
     "-m",
-    "sparkmagic.kernels.pysparkkernel.pysparkkernel",
+    "sparkmagic.kernels.pyspark2kernel.pyspark2kernel",
     "-f",
     "{connection_file}"
   ],
