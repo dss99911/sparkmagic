@@ -4,9 +4,9 @@ from sparkmagic.utils.constants import LANG_PYTHON
 from sparkmagic.kernels.wrapperkernel.sparkkernelbase import SparkKernelBase
 
 
-class PySparkKernel(SparkKernelBase):
+class PySpark3Kernel(SparkKernelBase):
     def __init__(self, **kwargs):
-        implementation = "PySpark"
+        implementation = "PySpark3"
         implementation_version = "1.0"
         language = LANG_PYTHON
         language_version = "0.1"
@@ -17,16 +17,17 @@ class PySparkKernel(SparkKernelBase):
             "file_extension": ".py",
             "pygments_lexer": "python3",
         }
+
         session_language = LANG_PYTHON
 
-        super(PySparkKernel, self).__init__(
+        super(PySpark3Kernel, self).__init__(
             implementation,
             implementation_version,
             language,
             language_version,
             language_info,
             session_language,
-            "python_dev",
+            "python_temp",
             **kwargs
         )
 
@@ -34,4 +35,4 @@ class PySparkKernel(SparkKernelBase):
 if __name__ == "__main__":
     from ipykernel.kernelapp import IPKernelApp
 
-    IPKernelApp.launch_instance(kernel_class=PySparkKernel)
+    IPKernelApp.launch_instance(kernel_class=PySpark3Kernel)

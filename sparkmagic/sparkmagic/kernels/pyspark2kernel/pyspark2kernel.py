@@ -27,7 +27,7 @@ class PySpark2Kernel(SparkKernelBase):
             language_version,
             language_info,
             session_language,
-            "python2",
+            "python_ds",
             **kwargs
         )
 

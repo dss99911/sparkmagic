@@ -95,7 +95,7 @@ def session_configs():
 
 
 @_with_override
-def kernel_python_credentials():
+def kernel_python_dev_credentials():
     return {
         "username": "",
         "base64_password": "",
@@ -105,7 +105,7 @@ def kernel_python_credentials():
 
 
 @_with_override
-def kernel_python2_credentials():
+def kernel_python_ds_credentials():
     return {
         "username": "",
         "base64_password": "",
@@ -113,23 +113,34 @@ def kernel_python2_credentials():
         "auth": NO_AUTH,
     }
 
+@_with_override
+def kernel_python_temp_credentials():
+    return {
+        "username": "",
+        "base64_password": "",
+        "url": "http://localhost:8998",
+        "auth": NO_AUTH,
+    }
 
-def base64_kernel_python2_credentials():
-    return _credentials_override(kernel_python2_credentials)
+def base64_kernel_python_ds_credentials():
+    return _credentials_override(kernel_python_ds_credentials)
+
+def base64_kernel_python_temp_credentials():
+    return _credentials_override(kernel_python_temp_credentials)
 
 
-def base64_kernel_python_credentials():
-    return _credentials_override(kernel_python_credentials)
+def base64_kernel_python_dev_credentials():
+    return _credentials_override(kernel_python_dev_credentials)
 
 
 # No one's gonna use pyspark and pyspark3 notebook on different endpoints. Reuse the old config.
 @_with_override
 def kernel_python3_credentials():
-    return kernel_python_credentials()
+    return kernel_python_dev_credentials()
 
 
 def base64_kernel_python3_credentials():
-    return base64_kernel_python_credentials()
+    return base64_kernel_python_dev_credentials()
 
 
 @_with_override

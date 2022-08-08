@@ -2,10 +2,10 @@
   "argv": [
     "python",
     "-m",
-    "sparkmagic.kernels.pysparkkernel.pysparkkernel",
+    "sparkmagic.kernels.pyspark3kernel.pyspark3kernel",
     "-f",
     "{connection_file}"
   ],
-  "display_name": "PySpark(Dev)",
+  "display_name": "PySpark(Temp)",
   "language": "python"
 }
