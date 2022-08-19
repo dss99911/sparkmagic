@@ -678,7 +678,7 @@ class KernelMagics(SparkMagicBase):
         )
 
         if cluster_name:
-            url = get_livy_url(cluster_name)
+            url = self.get_livy_url(cluster_name)
 
         args = Namespace(auth=auth, user=username, password=password, url=url)
         auth_instance = initialize_auth(args)

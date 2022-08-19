@@ -337,7 +337,7 @@ def _credentials_override(f):
     """
     credentials = f()
     base64_decoded_credentials = {
-        k: credentials.get(k) for k in ("username", "password", "url", "auth")
+        k: credentials.get(k) for k in ("username", "password", "url", "auth", "cluster_name")
     }
     base64_password = credentials.get("base64_password")
     if base64_password is not None:

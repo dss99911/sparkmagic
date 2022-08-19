@@ -95,7 +95,7 @@ class ReliableHttpClient(object):
 
                 if error:
                     raise HttpClientException(
-                        "Error sending http request and maximum retry encountered."
+                        f"Error sending http request and maximum retry encountered.\n{url}"
                     )
                 else:
                     raise HttpClientException(
