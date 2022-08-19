@@ -647,14 +647,39 @@ class KernelMagics(SparkMagicBase):
         else:
             session.ipython_display.send_error(out)
 
+    def get_livy_url(self, cluster_name):
+        import boto3
+        import re
+        client = boto3.client("emr")
+        clusters = client.list_clusters(
+            ClusterStates=[
+                'RUNNING', 'WAITING',
+            ]
+        )["Clusters"]
+
+        cluster_id = [c["Id"] for c in clusters if c["Name"] == cluster_name][0]
+
+        dns_name = client.describe_cluster(
+            ClusterId=cluster_id
+        )["Cluster"]['MasterPublicDnsName']
+
+        ip = ".".join(re.search(r'ip-(\d+)-(\d+)-(\d+)-(\d+)', dns_name).groups())
+        return f"http://{ip}:8998"
+
     def refresh_configuration(self, kernel):
         credentials = getattr(conf, "base64_kernel_" + kernel + "_credentials")()
-        (username, password, auth, url) = (
+
+        (username, password, auth, url, cluster_name) = (
             credentials["username"],
             credentials["password"],
             credentials["auth"],
             credentials["url"],
+            credentials.get("cluster_name"),
         )
+
+        if cluster_name:
+            url = get_livy_url(cluster_name)
+
         args = Namespace(auth=auth, user=username, password=password, url=url)
         auth_instance = initialize_auth(args)
         self.endpoint = Endpoint(url, auth_instance)
